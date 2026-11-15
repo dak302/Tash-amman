@@ -112,6 +112,16 @@ main{padding:24px 0 48px;min-height:70vh}
 .content ol{margin:0 0 12px;padding-inline-start:22px}
 .content li{margin:4px 0;padding-inline-start:2px}
 .content li::marker{color:var(--text-3)}
+.content ul{margin:0 0 12px;padding-inline-start:20px}
+.content ul li::marker{color:var(--green)}
+.content .tbl{overflow-x:auto;margin:8px 0 16px;border:1px solid var(--line);border-radius:var(--radius)}
+.content table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.45}
+.content th{background:var(--surface);font-weight:500;color:var(--text-2);text-align:start;padding:10px 12px;white-space:nowrap}
+.content td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+.content td:first-child{min-width:120px}
+.content td.num{white-space:nowrap}
+.content .callout{margin:16px 0;padding:12px 14px;border-radius:10px;background:#fbf6e9;color:#6b5414;font-size:14px;line-height:1.55}
+.sub-title{font-size:20px;font-weight:600;margin:32px 0 12px}
 .content a.ext{display:inline-flex;align-items:center;gap:6px;font-weight:500;text-decoration:none;padding:10px 14px;border-radius:10px;background:var(--green);color:#fff}
 
 /* רשימת אישורים עם סימון */
@@ -253,7 +263,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       <ul class="list big">
         <li><a class="row" href="#/hova"><span class="ico">${icons.hova}</span><span class="t"><b>ת״ש חובה</b><span>חופשות, היתר עבודה, חייל בודד, תשמ״ש ועוד</span></span><span class="n">${D.hova.length}</span>${chev}</a></li>
         <li><a class="row" href="#/banks"><span class="ico">${icons.banks}</span><span class="t"><b>אישורים לפי בנק</b><span>עובר ושב, ריכוז יתרות, פירוט אשראי ובעלות חשבון</span></span><span class="n">${D.banks.length}</span>${chev}</a></li>
-        <li><a class="row" href="#/keva"><span class="ico">${icons.keva}</span><span class="t"><b>ת״ש קבע</b><span>הבקשות הנפוצות למשרתי קבע</span></span>${chev}</a></li>
+        <li><a class="row" href="#/keva"><span class="ico">${icons.keva}</span><span class="t"><b>ת״ש קבע</b><span>שכר דירה, גנים, ליווי כלכלי ובקשות בדיגיטל</span></span><span class="n">${D.keva.topics.length}</span>${chev}</a></li>
       </ul>
       <div class="note">כדי לפתוח בקשה, פנו למשקית הת״ש ביחידה (במשרתי קבע: לקצינת הת״ש) או היכנסו למערכת ת״ש בטאץ׳.</div>
     `);
@@ -358,7 +368,11 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
   function keva(){
     render(`
       <p class="crumb">ת״ש קבע</p>
-      <h1 class="page-title">בקשות ת״ש קבע בדיגיטל</h1>
+      <h1 class="page-title">הזכויות שלך בקבע</h1>
+      <ul class="list">
+        ${D.keva.topics.map((t,i)=>`<li><a class="row" href="#/keva/${i}"><span class="t"><b>${esc(t.title)}</b><span>${esc(t.sub)}</span></span>${chev}</a></li>`).join('')}
+      </ul>
+      <h2 class="sub-title" id="online">בקשות בדיגיטל</h2>
       <ol class="how">
         <li>לחצו על הבקשה הרלוונטית</li>
         <li>עיינו בפירוט הבקשה</li>
@@ -366,11 +380,27 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
         <li>המתינו לתשובה במייל האזרחי</li>
       </ol>
       <ul class="list">
-        ${D.keva.online.map(k=>`<li><a class="row" href="${esc(k.link)}" target="_blank" rel="noopener"><span class="t"><b>${esc(k.title)}</b></span>${extIcon}</a></li>`).join('')}
+        ${D.keva.online.map(formRow).join('')}
       </ul>
-      <p class="section-label" style="margin-top:28px">בקשות נוספות דרך קצינת הת״ש</p>
-      <ul class="chips">${D.keva.other.map(k=>`<li>${esc(k)}</li>`).join('')}</ul>
+      <div class="note">בקשות שאינן ברשימה מגישים דרך קצינת הת״ש.</div>
     `, true);
+  }
+
+  function formRow(k){
+    return `<li><a class="row" href="${esc(k.link)}" target="_blank" rel="noopener"><span class="t"><b>${esc(k.title)}</b></span>${extIcon}</a></li>`;
+  }
+
+  function kevaTopic(i){
+    const t = D.keva.topics[i]; if(!t) return go('#/keva');
+    const forms = (t.forms||[]).map(n => D.keva.online.find(o => o.title === n)).filter(Boolean);
+    render(`
+      <p class="crumb">ת״ש קבע</p>
+      <h1 class="page-title">${esc(t.title)}</h1>
+      <div class="content" id="content">${t.html}</div>
+      ${forms.length ? `<h2 class="sub-title">להגשת בקשה</h2><ul class="list">${forms.map(formRow).join('')}</ul>` : `<div class="note">להגשת בקשה, פנו לקצינת הת״ש.</div>`}
+    `, true);
+    makeChecklists(document.getElementById('content'), 'chk:k' + i);
+    document.querySelectorAll('#content td').forEach(td => { if(/^[\d,.\s₪–-]+$/.test(td.textContent.trim())) td.classList.add('num'); });
   }
 
   /* ---------- ניתוב ---------- */
@@ -379,7 +409,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     const p = (location.hash.replace(/^#\/?/, '') || '').split('/');
     if(p[0] === 'hova') return p[1] != null ? hovaTopic(+p[1]) : hovaList();
     if(p[0] === 'banks') return p[1] != null ? bank(+p[1]) : bankList();
-    if(p[0] === 'keva') return keva();
+    if(p[0] === 'keva') return p[1] != null ? kevaTopic(+p[1]) : keva();
     home();
   }
   back.addEventListener('click', () => {
