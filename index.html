@@ -190,7 +190,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
 <main class="wrap"><div id="app"></div></main>
 
 <footer class="wrap">
-  המידע כללי ומבוסס על הנחיות 2026. סכומים וכללים עשויים להשתנות, ובכל שאלה כדאי לפנות למשקית הת״ש ביחידה.
+  המידע כללי ומבוסס על הנחיות 2026. סכומים וכללים עשויים להשתנות, ובכל שאלה כדאי לפנות לגורמי הת״ש ביחידה.
 </footer>
 
 <!-- סמל: פלר דה ליס בעיצוב מקורי, חצי ירוק וחצי לבן -->
@@ -252,7 +252,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
         <li><a class="row" href="#/banks"><span class="ico">${icons.banks}</span><span class="t"><b>אישורים לפי בנק</b><span>עובר ושב, ריכוז יתרות, פירוט אשראי ובעלות חשבון</span></span><span class="n">${D.banks.length}</span>${chev}</a></li>
         <li><a class="row" href="#/keva"><span class="ico">${icons.keva}</span><span class="t"><b>ת״ש קבע</b><span>הבקשות הנפוצות למשרתי קבע</span></span>${chev}</a></li>
       </ul>
-      <div class="note">כדי לפתוח בקשה, פנו למשקית הת״ש ביחידה או היכנסו למערכת ת״ש בטאץ׳.</div>
+      <div class="note">כדי לפתוח בקשה, פנו למשקית הת״ש ביחידה (במשרתי קבע: לקצינת הת״ש) או היכנסו למערכת ת״ש בטאץ׳.</div>
     `);
   }
 
@@ -355,7 +355,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     render(`
       <p class="crumb">ת״ש קבע</p>
       <h1 class="page-title">בקשות נפוצות למשרתי קבע</h1>
-      <p style="color:var(--text-2);margin:0 0 16px">הטפסים, ההסברים והתנאים לכל אחד מהנושאים האלה נמצאים במערכת ת״ש בטאץ׳ ואצל משקית הת״ש ביחידה.</p>
+      <p style="color:var(--text-2);margin:0 0 16px">הטפסים, ההסברים והתנאים לכל אחד מהנושאים האלה נמצאים במערכת ת״ש בטאץ׳ ואצל קצינת הת״ש.</p>
       <ul class="chips">${D.keva.map(k=>`<li>${esc(k)}</li>`).join('')}</ul>
       <div class="content"><p><a class="ext" href="https://tash.digital.idf.il/landing/" target="_blank" rel="noopener">לאתר ת״ש בטאץ׳</a></p></div>
     `, true);
