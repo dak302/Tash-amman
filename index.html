@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230e5a34'/%3E%3C/svg%3E">
+<link rel="icon" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
 <style>
 :root{
   --bg:#ffffff;
@@ -55,7 +56,7 @@ header.top{
 }
 .bar{display:flex;align-items:center;gap:12px;height:56px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);font-weight:500;font-size:16px}
-.brand svg{width:32px;height:32px;flex:none}
+.brand img{width:32px;height:32px;flex:none;object-fit:contain}
 .back{
   margin-inline-start:auto;display:none;align-items:center;gap:4px;
   border:0;background:none;padding:8px 12px;margin-inline-end:-12px;border-radius:8px;cursor:pointer;
@@ -75,8 +76,21 @@ main{padding:24px 0 48px;min-height:70vh}
 .hero h1{font-size:32px;line-height:1.15;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
 .hero p{margin:0;color:var(--text-2);font-size:16px;max-width:30ch}
 .hero .mark{width:96px;height:96px}
-.hero .mark svg{width:100%;height:100%}
+.hero .mark{object-fit:contain}
 
+.eyebrow{margin:0 0 4px !important;font-size:14px !important;color:var(--text-3) !important}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.quick a{padding:8px 12px;border-radius:8px;background:var(--surface);color:var(--text-2);font-size:14px;text-decoration:none;transition:background-color .15s var(--ease)}
+.quick a:hover{background:#e9ede9}
+.folder{display:flex;flex-direction:column;gap:12px;padding:20px;margin:0 0 16px;border-radius:16px;background:var(--green);color:#fff;text-decoration:none}
+.folder .f-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.folder .f-top > span{display:flex;flex-direction:column;gap:4px}
+.folder .f-label{font-size:14px;color:rgba(255,255,255,.75)}
+.folder b{font-size:20px;font-weight:600}
+.folder .f-num{font-size:28px;font-weight:600}
+.folder .f-bar{height:6px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden}
+.folder .f-bar i{display:block;height:100%;background:#fff;border-radius:4px}
+.folder .f-next{font-size:14px;color:rgba(255,255,255,.88);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .section-label{font-size:14px;color:var(--text-3);margin:0 0 8px;font-weight:500}
 
 .list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -192,8 +206,7 @@ mark{background:var(--green-soft);color:var(--green-ink);border-radius:3px;paddi
 footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);font-size:14px;line-height:1.6}
 
 @media (max-width:420px){
-  .hero{grid-template-columns:1fr}
-  .hero .mark{display:none}
+  .hero .mark{width:64px;height:64px}
   .hero h1{font-size:28px}
   .grid{grid-template-columns:1fr 1fr}
   .page-title{font-size:24px}
@@ -205,7 +218,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
 <header class="top">
   <div class="wrap bar">
     <a class="brand" href="#/" aria-label="לחיות את הת״ש – דף הבית">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem"/></svg>
+      <img src="assets/logo.png" alt="" width="32" height="32">
       <span>לחיות את הת״ש</span>
     </a>
     <button class="back" id="back" type="button">
@@ -270,10 +283,11 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     render(`
       <section class="hero">
         <div>
+          <p class="eyebrow">מדריך זכויות ת״ש · 2026</p>
           <h1>לחיות את הת״ש</h1>
-          <p>הזכויות שלך כחייל חובה וקבע, ואיך מוציאים כל אישור מהבנק</p>
+          <p>הזכויות שלך בחובה ובקבע, ואיך מוציאים כל אישור מהבנק</p>
         </div>
-        <div class="mark"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem"/></svg></div>
+        <img class="mark" src="assets/logo.png" alt="סמל אגף המודיעין">
       </section>
       <label class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
@@ -281,6 +295,8 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       </label>
       <div id="results" hidden></div>
       <div id="homeMain">
+      <div class="quick">${quickLinks()}</div>
+      ${folderCard()}
       <ul class="list big">
         <li><a class="row" href="#/hova"><span class="ico">${icons.hova}</span><span class="t"><b>ת״ש חובה</b><span>חופשות, היתר עבודה, חייל בודד, תשמ״ש ועוד</span></span><span class="n">${D.hova.length}</span>${chev}</a></li>
         <li><a class="row" href="#/banks"><span class="ico">${icons.banks}</span><span class="t"><b>אישורים לפי בנק</b><span>עובר ושב, ריכוז יתרות, פירוט אשראי ובעלות חשבון</span></span><span class="n">${D.banks.length}</span>${chev}</a></li>
@@ -292,6 +308,41 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     const q = document.getElementById('q');
     q.addEventListener('input', () => search(q.value));
     if(lastQuery){ q.value = lastQuery; search(lastQuery); }
+  }
+
+  function quickLinks(){
+    const find = (list, title, base) => { const i = list.findIndex(t => t.title === title); return i < 0 ? null : base + i; };
+    return [
+      ['שכר דירה', find(D.keva.topics, 'שכר דירה', '#/keva/')],
+      ['חופשות מיוחדות', find(D.hova, 'חופשות מיוחדות', '#/hova/')],
+      ['חייל בודד', find(D.hova, 'חייל בודד', '#/hova/')],
+      ['תשמ״ש', find(D.hova, 'תשמ״ש – תשלומי משפחה', '#/hova/')],
+    ].filter(x => x[1]).map(([n,h]) => `<a href="${h}">${n}</a>`).join('');
+  }
+
+  // כרטיס "התיק שלך": הנושא האחרון שבו סימנת מסמכים
+  function folderCard(){
+    const key = store.get('lastChk'); if(!key) return '';
+    const m = /^chk:(k?)(\d+)$/.exec(key); if(!m) return '';
+    const t = (m[1] ? D.keva.topics : D.hova)[+m[2]]; if(!t) return '';
+    const saved = store.get(key) || {};
+    const el = document.createElement('div'); el.innerHTML = t.html;
+    const items = []; let id = 0;
+    el.querySelectorAll('h3').forEach(h => {
+      if(!/^אישורים נדרשים/.test(h.textContent.trim())) return;
+      const ol = h.nextElementSibling; if(!ol || ol.tagName !== 'OL') return;
+      [...ol.children].forEach((li, j) => items.push({text: li.textContent.trim(), done: !!saved[id + '.' + j]}));
+      id++;
+    });
+    if(!items.length) return '';
+    const done = items.filter(x => x.done).length;
+    const next = items.find(x => !x.done);
+    const href = (m[1] ? '#/keva/' : '#/hova/') + m[2];
+    return `<a class="folder" href="${href}">
+      <span class="f-top"><span><span class="f-label">התיק שלך</span><b>${esc(t.title)}</b></span><span class="f-num">${done}/${items.length}</span></span>
+      <span class="f-bar"><i style="width:${done / items.length * 100}%"></i></span>
+      <span class="f-next">${next ? 'הבא ברשימה: ' + esc(next.text) : 'יש לך את כל המסמכים'}</span>
+    </a>`;
   }
 
   /* ---------- חיפוש ---------- */
@@ -416,7 +467,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       box.addEventListener('change', e => {
         const s = store.get(key) || {};
         s[id+'.'+e.target.dataset.j] = e.target.checked;
-        store.set(key, s); upd();
+        store.set(key, s); store.set('lastChk', key); upd();
       });
       upd();
     });
