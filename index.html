@@ -54,12 +54,12 @@ header.top{
   border-bottom:1px solid var(--line);
 }
 .bar{display:flex;align-items:center;gap:12px;height:56px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:500;font-size:17px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);font-weight:500;font-size:16px}
 .brand svg{width:32px;height:32px;flex:none}
 .back{
   margin-inline-start:auto;display:none;align-items:center;gap:4px;
-  border:0;background:none;padding:8px 10px;margin-inline-end:-10px;border-radius:8px;cursor:pointer;
-  color:var(--text-2);font-size:15px;transition:background-color .15s var(--ease)
+  border:0;background:none;padding:8px 12px;margin-inline-end:-12px;border-radius:8px;cursor:pointer;
+  color:var(--text-2);font-size:16px;transition:background-color .15s var(--ease)
 }
 .back:hover{background:var(--surface)}
 .back svg{width:18px;height:18px}
@@ -73,7 +73,7 @@ main{padding:24px 0 48px;min-height:70vh}
 /* ---------- בית ---------- */
 .hero{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:8px 0 28px}
 .hero h1{font-size:32px;line-height:1.15;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
-.hero p{margin:0;color:var(--text-2);font-size:17px;max-width:30ch}
+.hero p{margin:0;color:var(--text-2);font-size:16px;max-width:30ch}
 .hero .mark{width:96px;height:96px}
 .hero .mark svg{width:100%;height:100%}
 
@@ -94,11 +94,11 @@ main{padding:24px 0 48px;min-height:70vh}
 .row .n{color:var(--text-3);font-size:14px}
 .row .chev{width:16px;height:16px;color:var(--text-3);flex:none}
 .big .row{min-height:72px;padding:16px}
-.big .row .t b{font-size:17px}
-.ico{width:36px;height:36px;border-radius:10px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex:none}
+.big .row .t b{font-size:16px}
+.ico{width:36px;height:36px;border-radius:8px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex:none}
 .ico svg{width:18px;height:18px}
 
-.note{margin-top:24px;padding:14px 16px;border-radius:var(--radius);background:var(--surface);color:var(--text-2);font-size:14px;line-height:1.55}
+.note{margin-top:24px;padding:16px;border-radius:var(--radius);background:var(--surface);color:var(--text-2);font-size:14px;line-height:1.55}
 
 /* ---------- שפות ---------- */
 .langs{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 16px}
@@ -108,7 +108,7 @@ main{padding:24px 0 48px;min-height:70vh}
 .content[dir="ltr"]{text-align:left}
 
 /* ---------- חיפוש ---------- */
-.search{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;margin:0 0 16px;border:1px solid var(--line-strong);border-radius:var(--radius);background:#fff;transition:border-color .15s var(--ease)}
+.search{display:flex;align-items:center;gap:12px;height:48px;padding:0 16px;margin:0 0 16px;border:1px solid var(--line-strong);border-radius:var(--radius);background:#fff;transition:border-color .15s var(--ease)}
 .search:focus-within{border-color:var(--green)}
 .search svg{width:18px;height:18px;color:var(--text-3);flex:none}
 .search input{flex:1;min-width:0;border:0;outline:0;background:none;font:inherit;font-size:16px;color:var(--text)}
@@ -122,30 +122,30 @@ mark{background:var(--green-soft);color:var(--green-ink);border-radius:3px;paddi
 .content h2{font-size:20px;font-weight:600;margin:32px 0 8px;padding-top:24px;border-top:1px solid var(--line);color:var(--text)}
 .content > h2:first-child{margin-top:0;padding-top:0;border-top:0}
 .content h3{font-size:16px;font-weight:600;margin:20px 0 6px;color:var(--green-ink)}
-.content p{margin:0 0 10px}
+.content p{margin:0 0 12px}
 .content strong{font-weight:600}
-.content ol{margin:0 0 12px;padding-inline-start:22px}
+.content ol{margin:0 0 12px;padding-inline-start:24px}
 .content li{margin:4px 0;padding-inline-start:2px}
 .content li::marker{color:var(--text-3)}
 .content ul{margin:0 0 12px;padding-inline-start:20px}
 .content ul li::marker{color:var(--green)}
 .content .tbl{overflow-x:auto;margin:8px 0 16px;border:1px solid var(--line);border-radius:var(--radius)}
 .content table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.45}
-.content th{background:var(--surface);font-weight:500;color:var(--text-2);text-align:start;padding:10px 12px;white-space:nowrap}
-.content td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+.content th{background:var(--surface);font-weight:500;color:var(--text-2);text-align:start;padding:12px;white-space:nowrap}
+.content td{padding:12px;border-top:1px solid var(--line);vertical-align:top}
 .content td:first-child{min-width:120px}
 .content td.num{white-space:nowrap}
-.content .callout{margin:16px 0;padding:12px 14px;border-radius:10px;background:#fbf6e9;color:#6b5414;font-size:14px;line-height:1.55}
+.content .callout{margin:16px 0;padding:12px 16px;border-radius:8px;background:#fbf6e9;color:#6b5414;font-size:14px;line-height:1.55}
 .sub-title{font-size:20px;font-weight:600;margin:32px 0 12px}
-.content a.ext{display:inline-flex;align-items:center;gap:6px;font-weight:500;text-decoration:none;padding:10px 14px;border-radius:10px;background:var(--green);color:#fff}
+.content a.ext{display:inline-flex;align-items:center;gap:6px;font-weight:500;text-decoration:none;padding:12px 16px;border-radius:8px;background:var(--green);color:#fff}
 
 /* רשימת אישורים עם סימון */
 .check{border:1px solid var(--line);border-radius:var(--radius);margin:8px 0 16px;overflow:hidden}
-.check-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surface);font-size:14px;color:var(--text-2)}
+.check-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--surface);font-size:14px;color:var(--text-2)}
 .check-head .count{color:var(--green);font-weight:500}
 .check ul{list-style:none;margin:0;padding:0}
 .check li{margin:0;padding:0;border-top:1px solid var(--line)}
-.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;cursor:pointer;line-height:1.5}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;cursor:pointer;line-height:1.5}
 .check input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:2px 0 0;border:1.5px solid var(--line-strong);border-radius:6px;background:#fff;display:grid;place-items:center;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease)}
 .check input::after{content:"";width:10px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:translateY(-1px) rotate(-45deg);opacity:0}
 .check input:checked{background:var(--green);border-color:var(--green)}
@@ -157,39 +157,39 @@ mark{background:var(--green-soft);color:var(--green-ink);border-radius:3px;paddi
 /* ---------- בנקים ---------- */
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .tile{
-  display:flex;align-items:center;gap:10px;min-height:56px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);
+  display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius);
   background:var(--bg);text-decoration:none;color:var(--text);font-weight:500;transition:background-color .15s var(--ease),border-color .15s var(--ease)
 }
 .tile:hover{background:var(--surface);border-color:var(--line-strong)}
-.tile .ini{width:28px;height:28px;border-radius:8px;background:var(--surface);color:var(--text-2);display:grid;place-items:center;font-size:13px;flex:none}
+.tile .ini{display:none;width:28px;height:28px;border-radius:8px;background:var(--surface);color:var(--text-2);display:grid;place-items:center;font-size:14px;flex:none}
 .tile:hover .ini{background:#fff}
 
-.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin:0 0 20px}
-.seg button{border:0;background:none;padding:7px 16px;border-radius:8px;cursor:pointer;color:var(--text-2);display:inline-flex;align-items:center;gap:6px;font-size:15px;transition:background-color .15s var(--ease),color .15s var(--ease)}
+.seg{display:inline-flex;padding:4px;border-radius:12px;background:var(--surface);border:1px solid var(--line);margin:0 0 20px}
+.seg button{border:0;background:none;padding:8px 16px;border-radius:8px;cursor:pointer;color:var(--text-2);display:inline-flex;align-items:center;gap:6px;font-size:16px;transition:background-color .15s var(--ease),color .15s var(--ease)}
 .seg button svg{width:16px;height:16px}
 .seg button[aria-pressed="true"]{background:#fff;color:var(--text);box-shadow:0 1px 2px rgba(18,32,24,.08),0 0 0 1px var(--line)}
 
 .docs{display:grid;gap:12px}
 .doc{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-.doc summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:500}
+.doc summary{list-style:none;display:flex;align-items:center;gap:12px;padding:16px;cursor:pointer;font-weight:500}
 .doc summary::-webkit-details-marker{display:none}
 .doc summary .n{margin-inline-start:auto;color:var(--text-3);font-weight:400;font-size:14px}
 .doc summary .chev{width:16px;height:16px;color:var(--text-3);transition:transform .2s var(--ease)}
 .doc[open] summary .chev{transform:rotate(-90deg)}
 .doc[open] summary{border-bottom:1px solid var(--line)}
-.steps{list-style:none;margin:0;padding:8px 16px 14px;counter-reset:s}
+.steps{list-style:none;margin:0;padding:8px 16px 16px;counter-reset:s}
 .steps li{counter-increment:s;display:flex;gap:12px;padding:8px 0;line-height:1.5}
-.steps li::before{content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;background:var(--green-soft);color:var(--green);font-size:13px;font-weight:500;display:grid;place-items:center;margin-top:1px}
-.alias{padding:14px 16px;border-radius:var(--radius);background:var(--green-soft);color:var(--green-ink);margin:0 0 20px;font-size:15px}
+.steps li::before{content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;background:var(--green-soft);color:var(--green);font-size:14px;font-weight:500;display:grid;place-items:center;margin-top:1px}
+.alias{padding:16px;border-radius:var(--radius);background:var(--green-soft);color:var(--green-ink);margin:0 0 20px;font-size:16px}
 
 /* ---------- קבע ---------- */
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding:0;list-style:none}
-.chips li{padding:8px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px}
+.chips li{padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:16px}
 .how{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;counter-reset:h}
-.how li{counter-increment:h;display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:var(--surface);font-size:14px;line-height:1.4;color:var(--text-2)}
+.how li{counter-increment:h;display:flex;gap:12px;align-items:center;padding:12px;border-radius:8px;background:var(--surface);font-size:14px;line-height:1.4;color:var(--text-2)}
 .how li::before{content:counter(h);flex:none;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:500;display:grid;place-items:center}
 
-footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);font-size:13px;line-height:1.6}
+footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);font-size:14px;line-height:1.6}
 
 @media (max-width:420px){
   .hero{grid-template-columns:1fr}
@@ -277,7 +277,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       </section>
       <label class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-        <input id="q" type="search" placeholder="חיפוש, למשל שכר דירה או חופשה" autocomplete="off" aria-label="חיפוש">
+        <input id="q" type="search" placeholder="חיפוש" autocomplete="off" aria-label="חיפוש">
       </label>
       <div id="results" hidden></div>
       <div id="homeMain">
@@ -428,7 +428,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       <p class="crumb">אישורים לפי בנק</p>
       <h1 class="page-title">באיזה בנק החשבון שלך?</h1>
       <div class="grid">
-        ${D.banks.map((b,i)=>`<a class="tile" href="#/banks/${i}"><span class="ini">${esc(b.name.replace(/^בנק /,'').charAt(0))}</span>${esc(b.name)}</a>`).join('')}
+        ${D.banks.map((b,i)=>`<a class="tile" href="#/banks/${i}">${esc(b.name)}</a>`).join('')}
       </div>
       <div class="note">לכל בנק יש הסבר איך מוציאים ארבעה מסמכים: אישור בעלות חשבון, עובר ושב, פירוט כרטיס אשראי וריכוז יתרות.</div>
     `, true);
