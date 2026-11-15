@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>בדיקה</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    h1 {
+      margin-bottom: 24px;
+    }
+    button {
+      font-size: 1.1rem;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      background: #1a73e8;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1558b0;
+    }
+    #message {
+      margin-top: 16px;
+      min-height: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>בדיקה</h1>
+  <button type="button" id="btn">לחץ כאן</button>
+  <p id="message" aria-live="polite"></p>
+
+  <script>
+    document.getElementById('btn').addEventListener('click', function () {
+      document.getElementById('message').textContent = 'הכפתור נלחץ!';
+    });
+  </script>
+</body>
+</html>
