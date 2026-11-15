@@ -160,6 +160,9 @@ main{padding:24px 0 48px;min-height:70vh}
 /* ---------- קבע ---------- */
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding:0;list-style:none}
 .chips li{padding:8px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px}
+.how{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;counter-reset:h}
+.how li{counter-increment:h;display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:var(--surface);font-size:14px;line-height:1.4;color:var(--text-2)}
+.how li::before{content:counter(h);flex:none;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:500;display:grid;place-items:center}
 
 footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);font-size:13px;line-height:1.6}
 
@@ -351,13 +354,22 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
   }
 
   /* ---------- קבע ---------- */
+  const extIcon = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 9l-6 6M10 9h5v5"/><path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>';
   function keva(){
     render(`
       <p class="crumb">ת״ש קבע</p>
-      <h1 class="page-title">בקשות נפוצות למשרתי קבע</h1>
-      <p style="color:var(--text-2);margin:0 0 16px">הטפסים, ההסברים והתנאים לכל אחד מהנושאים האלה נמצאים במערכת ת״ש בטאץ׳ ואצל קצינת הת״ש.</p>
-      <ul class="chips">${D.keva.map(k=>`<li>${esc(k)}</li>`).join('')}</ul>
-      <div class="content"><p><a class="ext" href="https://tash.digital.idf.il/landing/" target="_blank" rel="noopener">לאתר ת״ש בטאץ׳</a></p></div>
+      <h1 class="page-title">בקשות ת״ש קבע בדיגיטל</h1>
+      <ol class="how">
+        <li>לחצו על הבקשה הרלוונטית</li>
+        <li>עיינו בפירוט הבקשה</li>
+        <li>העלו את המסמכים הנדרשים</li>
+        <li>המתינו לתשובה במייל האזרחי</li>
+      </ol>
+      <ul class="list">
+        ${D.keva.online.map(k=>`<li><a class="row" href="${esc(k.link)}" target="_blank" rel="noopener"><span class="t"><b>${esc(k.title)}</b></span>${extIcon}</a></li>`).join('')}
+      </ul>
+      <p class="section-label" style="margin-top:28px">בקשות נוספות דרך קצינת הת״ש</p>
+      <ul class="chips">${D.keva.other.map(k=>`<li>${esc(k)}</li>`).join('')}</ul>
     `, true);
   }
 

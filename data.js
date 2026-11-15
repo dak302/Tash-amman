@@ -1118,21 +1118,70 @@ window.TASH = {
    "sameAs": "בינלאומי"
   }
  ],
- "keva": [
-  "שכר דירה",
-  "סימולטור שכר דירה",
-  "הובלות",
-  "רמ״י",
-  "בני משפחה גרעינית מורחבת",
-  "הורה לילד עם מוגבלות",
-  "הוצאות חינוך לילד עם מוגבלות",
-  "החזרי גני ילדים",
-  "החזרי קייטנות",
-  "החזרי הוצאות",
-  "סמוכים לשולחן",
-  "בקשה לליווי כלכלי",
-  "היתר עבודה פרטית",
-  "אובדן ציוד אישי",
-  "מעטפת החייל הבודד בשירות קבע"
- ]
+ "keva": {
+  "online": [
+   {
+    "title": "שכר דירה",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/STLMXA8D3Y"
+   },
+   {
+    "title": "סימולטור שכר הדירה",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/DBLXSPB3EN"
+   },
+   {
+    "title": "הובלות",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/KULKM7NT9R"
+   },
+   {
+    "title": "הוצאות נלוות",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/UUCSEARBGJ"
+   },
+   {
+    "title": "רמ״י",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/G3AMEZAVQR"
+   },
+   {
+    "title": "בני משפחה גרעינית מורחבת",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/YK6LC2WVNK"
+   },
+   {
+    "title": "הורה לילד עם מוגבלות",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/276UZGUNLB"
+   },
+   {
+    "title": "הוצאות חינוך לילד עם מוגבלות",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/L6H262UM86"
+   },
+   {
+    "title": "מכסת מחלה ממארת",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/8V79J8964G"
+   },
+   {
+    "title": "פדיון חריג",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/W3VB3WNKV8"
+   },
+   {
+    "title": "סמוכים לשולחן",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/NRQW4K7LSY"
+   },
+   {
+    "title": "היתר עבודה פרטית",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/8TX4SA83PT"
+   },
+   {
+    "title": "אובדן ציוד אישי",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/TYN6AWJGW8"
+   },
+   {
+    "title": "בקשה לליווי כלכלי",
+    "link": "https://mofet-frontend.wiz.digital.idf.il/m/NYZ43QF6QH"
+   }
+  ],
+  "other": [
+   "החזרי גני ילדים",
+   "החזרי קייטנות",
+   "החזרי הוצאות",
+   "מעטפת החייל הבודד בשירות קבע"
+  ]
+ }
 };
