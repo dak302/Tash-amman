@@ -100,6 +100,13 @@ main{padding:24px 0 48px;min-height:70vh}
 
 .note{margin-top:24px;padding:14px 16px;border-radius:var(--radius);background:var(--surface);color:var(--text-2);font-size:14px;line-height:1.55}
 
+/* ---------- שפות ---------- */
+.langs{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 16px}
+.langs button{border:1px solid var(--line-strong);background:#fff;border-radius:8px;padding:6px 12px;font-size:14px;cursor:pointer;color:var(--text-2);transition:background-color .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease)}
+.langs button:hover{background:var(--surface)}
+.langs button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.content[dir="ltr"]{text-align:left}
+
 /* ---------- חיפוש ---------- */
 .search{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;margin:0 0 16px;border:1px solid var(--line-strong);border-radius:var(--radius);background:#fff;transition:border-color .15s var(--ease)}
 .search:focus-within{border-color:var(--green)}
@@ -299,7 +306,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
   const has = (str, w) => variants(w).some(v => str.includes(v));
   function buildIndex(){
     const items = [];
-    D.hova.forEach((t,i) => items.push({where:'ת״ש חובה', title:t.title, href:'#/hova/'+i, text:plain(t.html)}));
+    D.hova.forEach((t,i) => items.push({where:'ת״ש חובה', title:t.title, href:'#/hova/'+i, text:plain(t.html) + (t.langs ? ' ' + Object.values(t.langs).map(l => l.title + ' ' + plain(l.html)).join(' ') : '')}));
     D.keva.topics.forEach((t,i) => items.push({where:'ת״ש קבע', title:t.title, href:'#/keva/'+i, text:t.sub + ' · ' + plain(t.html)}));
     D.keva.online.forEach(o => items.push({where:'טופס דיגיטלי לקבע', title:o.title, href:o.link, ext:true, text:''}));
     D.banks.forEach((b,i) => items.push({where:'אישורים לפי בנק', title:b.name, href:'#/banks/'+i, text:'עובר ושב ריכוז יתרות פירוט אשראי אישור בעלות חשבון'}));
@@ -362,9 +369,28 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
 
   function hovaTopic(i){
     const t = D.hova[i]; if(!t) return go('#/hova');
-    render(`<p class="crumb">ת״ש חובה</p><h1 class="page-title">${esc(t.title)}</h1><div class="content" id="content">${t.html}</div>`, true);
+    const langs = t.langs ? Object.keys(t.langs) : [];
+    const bar = langs.length ? `<div class="langs" role="group" aria-label="שפה">${
+      [['he','עברית']].concat(langs.map(k => [k, LANG_NAMES[k]])).map(([k,n]) => `<button type="button" data-l="${k}" lang="${k}">${n}</button>`).join('')
+    }</div>` : '';
+    render(`<p class="crumb">ת״ש חובה</p>${bar}<h1 class="page-title" id="ttl">${esc(t.title)}</h1><div class="content" id="content">${t.html}</div>`, true);
     makeChecklists(document.getElementById('content'), 'chk:' + i);
+    if(!langs.length) return;
+    const show = l => {
+      const c = document.getElementById('content'), h = document.getElementById('ttl');
+      const tr = l !== 'he' && t.langs[l];
+      c.innerHTML = tr ? tr.html : t.html;
+      h.textContent = tr ? tr.title : t.title;
+      [c, h].forEach(el => { el.dir = tr ? 'ltr' : 'rtl'; el.lang = l; });
+      if(!tr) makeChecklists(c, 'chk:' + i);
+      document.querySelectorAll('.langs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === l));
+      store.set('lang', l);
+    };
+    document.querySelector('.langs').addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(b.dataset.l); });
+    const saved = store.get('lang');
+    show(saved && (saved === 'he' || t.langs[saved]) ? saved : 'he');
   }
+  const LANG_NAMES = {en:'English', ru:'Русский', fr:'Français', es:'Español'};
 
   // כל רשימה תחת "אישורים נדרשים" הופכת לרשימה עם סימון
   function makeChecklists(root, key){
