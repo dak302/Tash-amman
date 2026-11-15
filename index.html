@@ -1,53 +1,382 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>בדיקה</title>
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 16px;
-      box-sizing: border-box;
-    }
-    h1 {
-      margin-bottom: 24px;
-    }
-    button {
-      font-size: 1.1rem;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 8px;
-      background: #1a73e8;
-      color: #fff;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #1558b0;
-    }
-    #message {
-      margin-top: 16px;
-      min-height: 1.5em;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>לחיות את הת״ש</title>
+<meta name="description" content="זכויות ת״ש לחיילי חובה וקבע, ואיך מוציאים כל אישור מהבנק">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230e5a34'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#ffffff;
+  --surface:#f5f7f5;
+  --line:rgba(18,32,24,.09);
+  --line-strong:rgba(18,32,24,.16);
+  --text:#15201a;
+  --text-2:#4a5850;
+  --text-3:#7b8780;
+  --green:#0e5a34;          /* ירוק בקבוק – צבע מוביל */
+  --green-ink:#0b4a2b;
+  --green-soft:#e8f1ec;
+  --emblem:#109a3c;         /* ירוק הסמל */
+  --purple:#5b2d8a;         /* השרוך */
+  --purple-2:#7a49ad;
+  --radius:12px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:"Heebo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-size:16px;line-height:1.6;font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--green)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:6px}
+
+/* ---------- השרוך ---------- */
+.cord{
+  height:6px;
+  background:repeating-linear-gradient(135deg,var(--purple) 0 6px,var(--purple-2) 6px 9px);
+}
+
+/* ---------- מבנה ---------- */
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+header.top{
+  position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);
+  backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.bar{display:flex;align-items:center;gap:12px;height:56px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:500;font-size:17px}
+.brand svg{width:32px;height:32px;flex:none}
+.back{
+  margin-inline-start:auto;display:none;align-items:center;gap:4px;
+  border:0;background:none;padding:8px 10px;margin-inline-end:-10px;border-radius:8px;cursor:pointer;
+  color:var(--text-2);font-size:15px;transition:background-color .15s var(--ease)
+}
+.back:hover{background:var(--surface)}
+.back svg{width:18px;height:18px}
+body.inner .back{display:inline-flex}
+
+main{padding:24px 0 48px;min-height:70vh}
+.view{animation:enter .22s var(--ease)}
+@keyframes enter{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view{animation:none}}
+
+/* ---------- בית ---------- */
+.hero{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:8px 0 28px}
+.hero h1{font-size:32px;line-height:1.15;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
+.hero p{margin:0;color:var(--text-2);font-size:17px;max-width:30ch}
+.hero .mark{width:96px;height:96px}
+.hero .mark svg{width:100%;height:100%}
+
+.section-label{font-size:14px;color:var(--text-3);margin:0 0 8px;font-weight:500}
+
+.list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.list li+li{border-top:1px solid var(--line)}
+.row{
+  display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:12px 16px;
+  text-decoration:none;color:var(--text);background:var(--bg);border:0;text-align:start;cursor:pointer;
+  transition:background-color .15s var(--ease)
+}
+.row:hover{background:var(--surface)}
+.row:active{background:#edf1ee}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font-weight:500;font-size:16px}
+.row .t span{display:block;color:var(--text-3);font-size:14px;line-height:1.4;margin-top:2px}
+.row .n{color:var(--text-3);font-size:14px}
+.row .chev{width:16px;height:16px;color:var(--text-3);flex:none}
+.big .row{min-height:72px;padding:16px}
+.big .row .t b{font-size:17px}
+.ico{width:36px;height:36px;border-radius:10px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex:none}
+.ico svg{width:18px;height:18px}
+
+.note{margin-top:24px;padding:14px 16px;border-radius:var(--radius);background:var(--surface);color:var(--text-2);font-size:14px;line-height:1.55}
+
+/* ---------- דף נושא ---------- */
+.crumb{font-size:14px;color:var(--text-3);margin:0 0 4px}
+.page-title{font-size:28px;line-height:1.2;font-weight:600;margin:0 0 20px}
+.content{font-size:16px}
+.content h2{font-size:20px;font-weight:600;margin:32px 0 8px;padding-top:24px;border-top:1px solid var(--line);color:var(--text)}
+.content > h2:first-child{margin-top:0;padding-top:0;border-top:0}
+.content h3{font-size:16px;font-weight:600;margin:20px 0 6px;color:var(--green-ink)}
+.content p{margin:0 0 10px}
+.content strong{font-weight:600}
+.content ol{margin:0 0 12px;padding-inline-start:22px}
+.content li{margin:4px 0;padding-inline-start:2px}
+.content li::marker{color:var(--text-3)}
+.content a.ext{display:inline-flex;align-items:center;gap:6px;font-weight:500;text-decoration:none;padding:10px 14px;border-radius:10px;background:var(--green);color:#fff}
+
+/* רשימת אישורים עם סימון */
+.check{border:1px solid var(--line);border-radius:var(--radius);margin:8px 0 16px;overflow:hidden}
+.check-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surface);font-size:14px;color:var(--text-2)}
+.check-head .count{color:var(--green);font-weight:500}
+.check ul{list-style:none;margin:0;padding:0}
+.check li{margin:0;padding:0;border-top:1px solid var(--line)}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;cursor:pointer;line-height:1.5}
+.check input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:2px 0 0;border:1.5px solid var(--line-strong);border-radius:6px;background:#fff;display:grid;place-items:center;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease)}
+.check input::after{content:"";width:10px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:translateY(-1px) rotate(-45deg);opacity:0}
+.check input:checked{background:var(--green);border-color:var(--green)}
+.check input:checked::after{opacity:1}
+.check input:checked + span{color:var(--text-3);text-decoration:line-through;text-decoration-color:rgba(18,32,24,.3)}
+.check .bar-p{height:3px;background:var(--line)}
+.check .bar-p i{display:block;height:100%;width:0;background:var(--green);transition:width .25s var(--ease)}
+
+/* ---------- בנקים ---------- */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.tile{
+  display:flex;align-items:center;gap:10px;min-height:56px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg);text-decoration:none;color:var(--text);font-weight:500;transition:background-color .15s var(--ease),border-color .15s var(--ease)
+}
+.tile:hover{background:var(--surface);border-color:var(--line-strong)}
+.tile .ini{width:28px;height:28px;border-radius:8px;background:var(--surface);color:var(--text-2);display:grid;place-items:center;font-size:13px;flex:none}
+.tile:hover .ini{background:#fff}
+
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin:0 0 20px}
+.seg button{border:0;background:none;padding:7px 16px;border-radius:8px;cursor:pointer;color:var(--text-2);display:inline-flex;align-items:center;gap:6px;font-size:15px;transition:background-color .15s var(--ease),color .15s var(--ease)}
+.seg button svg{width:16px;height:16px}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--text);box-shadow:0 1px 2px rgba(18,32,24,.08),0 0 0 1px var(--line)}
+
+.docs{display:grid;gap:12px}
+.doc{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.doc summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:500}
+.doc summary::-webkit-details-marker{display:none}
+.doc summary .n{margin-inline-start:auto;color:var(--text-3);font-weight:400;font-size:14px}
+.doc summary .chev{width:16px;height:16px;color:var(--text-3);transition:transform .2s var(--ease)}
+.doc[open] summary .chev{transform:rotate(-90deg)}
+.doc[open] summary{border-bottom:1px solid var(--line)}
+.steps{list-style:none;margin:0;padding:8px 16px 14px;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:12px;padding:8px 0;line-height:1.5}
+.steps li::before{content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;background:var(--green-soft);color:var(--green);font-size:13px;font-weight:500;display:grid;place-items:center;margin-top:1px}
+.alias{padding:14px 16px;border-radius:var(--radius);background:var(--green-soft);color:var(--green-ink);margin:0 0 20px;font-size:15px}
+
+/* ---------- קבע ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding:0;list-style:none}
+.chips li{padding:8px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px}
+
+footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);font-size:13px;line-height:1.6}
+
+@media (max-width:420px){
+  .hero{grid-template-columns:1fr}
+  .hero .mark{display:none}
+  .hero h1{font-size:28px}
+  .grid{grid-template-columns:1fr 1fr}
+  .page-title{font-size:24px}
+}
+</style>
 </head>
 <body>
-  <h1>בדיקה</h1>
-  <button type="button" id="btn">לחץ כאן</button>
-  <p id="message" aria-live="polite"></p>
+<div class="cord" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#/" aria-label="לחיות את הת״ש – דף הבית">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem"/></svg>
+      <span>לחיות את הת״ש</span>
+    </a>
+    <button class="back" id="back" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      חזרה
+    </button>
+  </div>
+</header>
 
-  <script>
-    document.getElementById('btn').addEventListener('click', function () {
-      document.getElementById('message').textContent = 'הכפתור נלחץ!';
+<main class="wrap"><div id="app"></div></main>
+
+<footer class="wrap">
+  המידע כללי ומבוסס על הנחיות 2026. סכומים וכללים עשויים להשתנות, ובכל שאלה כדאי לפנות למשקית הת״ש ביחידה.
+</footer>
+
+<!-- סמל: פלר דה ליס בעיצוב מקורי, חצי ירוק וחצי לבן -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <path id="lily-half" d="M50 6 C57 16 62 26 61 37 C60 45 57 51 54 56 L57 56 C58 44 66 33 77 32 C87 31 92 40 89 48 C87 54 81 57 77 54 C74 52 75 47 79 46 C82 45 83 42 80 40 C75 37 68 44 66 56 L71 56 C73 56 74 57 74 59 L74 62 C74 64 73 65 71 65 L56 65 C58 71 63 77 70 80 C64 82 57 80 53 76 L50 74 Z"/>
+    <g id="lily"><g transform="translate(50 51) scale(.96) translate(-50 -43)"><use href="#lily-half"/><use href="#lily-half" transform="translate(100 0) scale(-1 1)"/></g></g>
+    <clipPath id="c-r"><rect x="50" y="0" width="50" height="100"/></clipPath>
+    <clipPath id="c-l"><rect x="0" y="0" width="50" height="100"/></clipPath>
+    <g id="emblem">
+      <circle cx="50" cy="50" r="48" fill="#fff"/>
+      <g clip-path="url(#c-r)"><circle cx="50" cy="50" r="48" fill="#109a3c"/><use href="#lily" fill="#fff"/></g>
+      <g clip-path="url(#c-l)"><use href="#lily" fill="#109a3c"/></g>
+      <circle cx="50" cy="50" r="47.5" fill="none" stroke="#109a3c" stroke-width="1.5"/>
+    </g>
+  </defs>
+</svg>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  const D = window.TASH;
+  const app = document.getElementById('app');
+  const back = document.getElementById('back');
+
+  const chev = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>';
+  const icons = {
+    hova:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>',
+    banks:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18L12 4z"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg>',
+    keva:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></svg>',
+    pc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>',
+    phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/></svg>'
+  };
+
+  const store = {
+    get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+    set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  function render(html, inner){
+    document.body.classList.toggle('inner', !!inner);
+    app.innerHTML = '<div class="view">' + html + '</div>';
+    window.scrollTo(0,0);
+  }
+
+  /* ---------- בית ---------- */
+  function home(){
+    render(`
+      <section class="hero">
+        <div>
+          <h1>לחיות את הת״ש</h1>
+          <p>הזכויות שלך כחייל חובה וקבע, ואיך מוציאים כל אישור מהבנק</p>
+        </div>
+        <div class="mark"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem"/></svg></div>
+      </section>
+      <ul class="list big">
+        <li><a class="row" href="#/hova"><span class="ico">${icons.hova}</span><span class="t"><b>ת״ש חובה</b><span>חופשות, היתר עבודה, חייל בודד, תשמ״ש ועוד</span></span><span class="n">${D.hova.length}</span>${chev}</a></li>
+        <li><a class="row" href="#/banks"><span class="ico">${icons.banks}</span><span class="t"><b>אישורים לפי בנק</b><span>עובר ושב, ריכוז יתרות, פירוט אשראי ובעלות חשבון</span></span><span class="n">${D.banks.length}</span>${chev}</a></li>
+        <li><a class="row" href="#/keva"><span class="ico">${icons.keva}</span><span class="t"><b>ת״ש קבע</b><span>הבקשות הנפוצות למשרתי קבע</span></span>${chev}</a></li>
+      </ul>
+      <div class="note">כדי לפתוח בקשה, פנו למשקית הת״ש ביחידה או היכנסו למערכת ת״ש בטאץ׳.</div>
+    `);
+  }
+
+  /* ---------- ת״ש חובה ---------- */
+  function hovaList(){
+    render(`
+      <p class="crumb">ת״ש חובה</p>
+      <h1 class="page-title">על מה תרצו לקרוא?</h1>
+      <ul class="list">
+        ${D.hova.map((t,i)=>`<li><a class="row" href="#/hova/${i}"><span class="t"><b>${esc(t.title)}</b></span>${chev}</a></li>`).join('')}
+      </ul>
+    `, true);
+  }
+
+  function hovaTopic(i){
+    const t = D.hova[i]; if(!t) return go('#/hova');
+    render(`<p class="crumb">ת״ש חובה</p><h1 class="page-title">${esc(t.title)}</h1><div class="content" id="content">${t.html}</div>`, true);
+    makeChecklists(document.getElementById('content'), 'chk:' + i);
+  }
+
+  // כל רשימה תחת "אישורים נדרשים" הופכת לרשימה עם סימון
+  function makeChecklists(root, key){
+    const saved = store.get(key) || {};
+    let n = 0;
+    root.querySelectorAll('h3').forEach(h => {
+      if(!/^אישורים נדרשים/.test(h.textContent.trim())) return;
+      const ol = h.nextElementSibling;
+      if(!ol || ol.tagName !== 'OL') return;
+      const id = n++;
+      const items = [...ol.children].map(li => li.innerHTML);
+      const box = document.createElement('div');
+      box.className = 'check';
+      box.innerHTML = `<div class="check-head"><span>מה כבר יש לך</span><span class="count"></span></div><div class="bar-p"><i></i></div><ul>${
+        items.map((it,j)=>`<li><label><input type="checkbox" data-j="${j}" ${saved[id+'.'+j]?'checked':''}><span>${it}</span></label></li>`).join('')
+      }</ul>`;
+      ol.replaceWith(box);
+      const upd = () => {
+        const all = box.querySelectorAll('input'), done = box.querySelectorAll('input:checked').length;
+        box.querySelector('.count').textContent = done + ' מתוך ' + all.length;
+        box.querySelector('.bar-p i').style.width = (done / all.length * 100) + '%';
+      };
+      box.addEventListener('change', e => {
+        const s = store.get(key) || {};
+        s[id+'.'+e.target.dataset.j] = e.target.checked;
+        store.set(key, s); upd();
+      });
+      upd();
     });
-  </script>
+  }
+
+  /* ---------- בנקים ---------- */
+  function bankList(){
+    render(`
+      <p class="crumb">אישורים לפי בנק</p>
+      <h1 class="page-title">באיזה בנק החשבון שלך?</h1>
+      <div class="grid">
+        ${D.banks.map((b,i)=>`<a class="tile" href="#/banks/${i}"><span class="ini">${esc(b.name.replace(/^בנק /,'').charAt(0))}</span>${esc(b.name)}</a>`).join('')}
+      </div>
+      <div class="note">לכל בנק יש הסבר איך מוציאים ארבעה מסמכים: אישור בעלות חשבון, עובר ושב, פירוט כרטיס אשראי וריכוז יתרות.</div>
+    `, true);
+  }
+
+  function bank(i){
+    let b = D.banks[i]; if(!b) return go('#/banks');
+    let alias = '';
+    if(b.sameAs){
+      const base = D.banks.find(x => x.name === b.sameAs);
+      alias = `<div class="alias">${esc(b.name)} שייך לקבוצת הבינלאומי ומשתמש באותה מערכת. ההוראות כאן זהות.</div>`;
+      b = Object.assign({}, base, {name:b.name});
+    }
+    let dev = store.get('device') === 'phone' ? 'phone' : 'pc';
+    const draw = () => {
+      const docs = b[dev];
+      document.getElementById('docs').innerHTML = docs.map((d,k)=>`
+        <details class="doc" ${k===0?'open':''}>
+          <summary>${esc(d.doc)}<span class="n">${d.steps.length} שלבים</span>${chev}</summary>
+          <ol class="steps">${d.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+        </details>`).join('');
+      document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x.dataset.d === dev));
+    };
+    render(`
+      <p class="crumb">אישורים לפי בנק</p>
+      <h1 class="page-title">${esc(b.name)}</h1>
+      ${alias}
+      <div class="seg" role="group" aria-label="מאיפה נכנסים">
+        <button type="button" data-d="pc">${icons.pc}מחשב</button>
+        <button type="button" data-d="phone">${icons.phone}טלפון</button>
+      </div>
+      <div class="docs" id="docs"></div>
+    `, true);
+    document.querySelector('.seg').addEventListener('click', e => {
+      const btn = e.target.closest('button'); if(!btn) return;
+      dev = btn.dataset.d; store.set('device', dev); draw();
+    });
+    draw();
+  }
+
+  /* ---------- קבע ---------- */
+  function keva(){
+    render(`
+      <p class="crumb">ת״ש קבע</p>
+      <h1 class="page-title">בקשות נפוצות למשרתי קבע</h1>
+      <p style="color:var(--text-2);margin:0 0 16px">הטפסים, ההסברים והתנאים לכל אחד מהנושאים האלה נמצאים במערכת ת״ש בטאץ׳ ואצל משקית הת״ש ביחידה.</p>
+      <ul class="chips">${D.keva.map(k=>`<li>${esc(k)}</li>`).join('')}</ul>
+      <div class="content"><p><a class="ext" href="https://tash.digital.idf.il/landing/" target="_blank" rel="noopener">לאתר ת״ש בטאץ׳</a></p></div>
+    `, true);
+  }
+
+  /* ---------- ניתוב ---------- */
+  function go(h){ location.hash = h; }
+  function route(){
+    const p = (location.hash.replace(/^#\/?/, '') || '').split('/');
+    if(p[0] === 'hova') return p[1] != null ? hovaTopic(+p[1]) : hovaList();
+    if(p[0] === 'banks') return p[1] != null ? bank(+p[1]) : bankList();
+    if(p[0] === 'keva') return keva();
+    home();
+  }
+  back.addEventListener('click', () => {
+    const p = location.hash.replace(/^#\/?/, '').split('/');
+    go(p.length > 1 ? '#/' + p[0] : '#/');
+  });
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
 </body>
 </html>
