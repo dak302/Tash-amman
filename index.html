@@ -100,6 +100,14 @@ main{padding:24px 0 48px;min-height:70vh}
 
 .note{margin-top:24px;padding:14px 16px;border-radius:var(--radius);background:var(--surface);color:var(--text-2);font-size:14px;line-height:1.55}
 
+/* ---------- חיפוש ---------- */
+.search{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;margin:0 0 16px;border:1px solid var(--line-strong);border-radius:var(--radius);background:#fff;transition:border-color .15s var(--ease)}
+.search:focus-within{border-color:var(--green)}
+.search svg{width:18px;height:18px;color:var(--text-3);flex:none}
+.search input{flex:1;min-width:0;border:0;outline:0;background:none;font:inherit;font-size:16px;color:var(--text)}
+.search input::placeholder{color:var(--text-3)}
+mark{background:var(--green-soft);color:var(--green-ink);border-radius:3px;padding:0 1px}
+
 /* ---------- דף נושא ---------- */
 .crumb{font-size:14px;color:var(--text-3);margin:0 0 4px}
 .page-title{font-size:28px;line-height:1.2;font-weight:600;margin:0 0 20px}
@@ -260,13 +268,85 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
         </div>
         <div class="mark"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem"/></svg></div>
       </section>
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="q" type="search" placeholder="חיפוש, למשל שכר דירה או חופשה" autocomplete="off" aria-label="חיפוש">
+      </label>
+      <div id="results" hidden></div>
+      <div id="homeMain">
       <ul class="list big">
         <li><a class="row" href="#/hova"><span class="ico">${icons.hova}</span><span class="t"><b>ת״ש חובה</b><span>חופשות, היתר עבודה, חייל בודד, תשמ״ש ועוד</span></span><span class="n">${D.hova.length}</span>${chev}</a></li>
         <li><a class="row" href="#/banks"><span class="ico">${icons.banks}</span><span class="t"><b>אישורים לפי בנק</b><span>עובר ושב, ריכוז יתרות, פירוט אשראי ובעלות חשבון</span></span><span class="n">${D.banks.length}</span>${chev}</a></li>
         <li><a class="row" href="#/keva"><span class="ico">${icons.keva}</span><span class="t"><b>ת״ש קבע</b><span>שכר דירה, גנים, ליווי כלכלי ובקשות בדיגיטל</span></span><span class="n">${D.keva.topics.length}</span>${chev}</a></li>
       </ul>
       <div class="note">כדי לפתוח בקשה, פנו למשקית הת״ש ביחידה (במשרתי קבע: לקצינת הת״ש) או היכנסו למערכת ת״ש בטאץ׳.</div>
+      </div>
     `);
+    const q = document.getElementById('q');
+    q.addEventListener('input', () => search(q.value));
+    if(lastQuery){ q.value = lastQuery; search(lastQuery); }
+  }
+
+  /* ---------- חיפוש ---------- */
+  let lastQuery = '';
+  let INDEX = null;
+  const norm = s => String(s).toLowerCase().replace(/[״"׳'֑-ׇ]/g, '').replace(/[-–־]/g, ' ').replace(/\s+/g, ' ');
+  const plain = html => { const el = document.createElement('div'); el.innerHTML = html.replace(/<\/(p|li|h2|h3|td|th|tr|strong)>/g, '$& '); return el.textContent.replace(/\s+/g, ' ').trim(); };
+  // אותיות סופיות נחשבות כרגילות, ומילה ברבים מחפשת גם את השורש: גנים → גנ
+  const FINALS = {'ך':'כ','ם':'מ','ן':'נ','ף':'פ','ץ':'צ'};
+  const fold = s => s.replace(/[ךםןףץ]/g, c => FINALS[c]);
+  const variants = w => (w.length > 3 && /(ימ|ות)$/.test(w)) ? [w, w.slice(0,-2)] : [w];
+  const has = (str, w) => variants(w).some(v => str.includes(v));
+  function buildIndex(){
+    const items = [];
+    D.hova.forEach((t,i) => items.push({where:'ת״ש חובה', title:t.title, href:'#/hova/'+i, text:plain(t.html)}));
+    D.keva.topics.forEach((t,i) => items.push({where:'ת״ש קבע', title:t.title, href:'#/keva/'+i, text:t.sub + ' · ' + plain(t.html)}));
+    D.keva.online.forEach(o => items.push({where:'טופס דיגיטלי לקבע', title:o.title, href:o.link, ext:true, text:''}));
+    D.banks.forEach((b,i) => items.push({where:'אישורים לפי בנק', title:b.name, href:'#/banks/'+i, text:'עובר ושב ריכוז יתרות פירוט אשראי אישור בעלות חשבון'}));
+    items.forEach(it => { it.nt = fold(norm(it.title)); it.nx = fold(norm(it.text)); });
+    return items;
+  }
+  function snippet(text, words){
+    const n = fold(text.toLowerCase());
+    let at = -1;
+    for(const w of words){ at = n.indexOf(w); if(at >= 0) break; }
+    if(at < 0) return '';
+    // norm() keeps length for most text, so the index maps back closely enough for a preview
+    const start = Math.max(0, at - 40);
+    let s = text.slice(start, start + 140);
+    if(start > 0) s = '…' + s.replace(/^\S*\s/, '');
+    if(start + 140 < text.length) s = s.replace(/\s\S*$/, '') + '…';
+    return s;
+  }
+  function mark(s, words){
+    let out = esc(s);
+    const UNFOLD = {'כ':'[כך]','מ':'[מם]','נ':'[נן]','פ':'[פף]','צ':'[צץ]'};
+    words.forEach(w => {
+      if(w.length < 2) return;
+      const re = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[כמנפצ]/g, c => UNFOLD[c]);
+      out = out.replace(new RegExp('(' + re + ')', 'g'), '<mark>$1</mark>');
+    });
+    return out;
+  }
+  function search(raw){
+    lastQuery = raw;
+    const res = document.getElementById('results'), main = document.getElementById('homeMain');
+    const words = fold(norm(raw)).trim().split(' ').filter(Boolean);
+    if(!words.length){ res.hidden = true; main.hidden = false; return; }
+    INDEX = INDEX || buildIndex();
+    const hits = INDEX.map(it => {
+      if(!words.every(w => has(it.nt, w) || has(it.nx, w))) return null;
+      const score = words.filter(w => has(it.nt, w)).length * 10 + (it.ext ? -1 : 0);
+      return {it, score};
+    }).filter(Boolean).sort((a,b) => b.score - a.score).slice(0, 30);
+    main.hidden = true; res.hidden = false;
+    res.innerHTML = hits.length
+      ? `<p class="section-label">${hits.length} תוצאות</p><ul class="list">${hits.map(({it}) => {
+          const all = words.flatMap(variants);
+          const snip = it.text && !words.every(w => has(it.nt, w)) ? snippet(it.text, all) : '';
+          return `<li><a class="row" href="${esc(it.href)}"${it.ext ? ' target="_blank" rel="noopener"' : ''}><span class="t"><b>${mark(it.title, all)}</b><span>${esc(it.where)}${snip ? ' · ' + mark(snip, all) : ''}</span></span>${it.ext ? extIcon : chev}</a></li>`;
+        }).join('')}</ul>`
+      : `<div class="note">לא מצאנו תוצאות. נסו מילה אחרת, או פנו לגורמי הת״ש ביחידה.</div>`;
   }
 
   /* ---------- ת״ש חובה ---------- */
