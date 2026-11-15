@@ -82,7 +82,7 @@ main{padding:24px 0 48px;min-height:70vh}
 .quick{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
 .quick a{padding:8px 12px;border-radius:8px;background:var(--surface);color:var(--text-2);font-size:14px;text-decoration:none;transition:background-color .15s var(--ease)}
 .quick a:hover{background:#e9ede9}
-.folder{display:flex;flex-direction:column;gap:12px;padding:20px;margin:0 0 16px;border-radius:16px;background:var(--green);color:#fff;text-decoration:none}
+.folder{display:flex;flex-direction:column;gap:12px;padding:20px;margin:0 0 8px;border-radius:16px;background:var(--green);color:#fff;text-decoration:none}
 .folder .f-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .folder .f-top > span{display:flex;flex-direction:column;gap:4px}
 .folder .f-label{font-size:14px;color:rgba(255,255,255,.75)}
@@ -91,6 +91,11 @@ main{padding:24px 0 48px;min-height:70vh}
 .folder .f-bar{height:6px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden}
 .folder .f-bar i{display:block;height:100%;background:#fff;border-radius:4px}
 .folder .f-next{font-size:14px;color:rgba(255,255,255,.88);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.clear-all{display:block;margin:0 0 16px auto;border:0;background:none;padding:8px 4px;font:inherit;font-size:14px;color:var(--text-3);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.clear-all:hover{color:var(--text-2)}
+.ch-end{display:flex;align-items:center;gap:12px}
+.check .clear{border:0;background:none;padding:4px;font:inherit;font-size:14px;color:var(--text-3);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.check .clear:hover{color:var(--text-2)}
 .section-label{font-size:14px;color:var(--text-3);margin:0 0 8px;font-weight:500}
 
 .list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -305,6 +310,12 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       <div class="note">כדי לפתוח בקשה, פנו למשקית הת״ש ביחידה (במשרתי קבע: לקצינת הת״ש) או היכנסו למערכת ת״ש בטאץ׳.</div>
       </div>
     `);
+    const ca = document.getElementById('clearAll');
+    if(ca) ca.addEventListener('click', () => {
+      if(!confirm('לנקות את כל הסימונים בכל הנושאים? אי אפשר לבטל את זה.')) return;
+      try { Object.keys(localStorage).filter(k => k === 'lastChk' || k.startsWith('chk:')).forEach(k => localStorage.removeItem(k)); } catch(e) {}
+      home();
+    });
     const q = document.getElementById('q');
     q.addEventListener('input', () => search(q.value));
     if(lastQuery){ q.value = lastQuery; search(lastQuery); }
@@ -342,7 +353,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       <span class="f-top"><span><span class="f-label">התיק שלך</span><b>${esc(t.title)}</b></span><span class="f-num">${done}/${items.length}</span></span>
       <span class="f-bar"><i style="width:${done / items.length * 100}%"></i></span>
       <span class="f-next">${next ? 'הבא ברשימה: ' + esc(next.text) : 'יש לך את כל המסמכים'}</span>
-    </a>`;
+    </a><button type="button" class="clear-all" id="clearAll">ניקוי כל הסימונים</button>`;
   }
 
   /* ---------- חיפוש ---------- */
@@ -455,7 +466,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       const items = [...ol.children].map(li => li.innerHTML);
       const box = document.createElement('div');
       box.className = 'check';
-      box.innerHTML = `<div class="check-head"><span>מה כבר יש לך</span><span class="count"></span></div><div class="bar-p"><i></i></div><ul>${
+      box.innerHTML = `<div class="check-head"><span>מה כבר יש לך</span><span class="ch-end"><span class="count"></span><button type="button" class="clear" hidden>ניקוי</button></span></div><div class="bar-p"><i></i></div><ul>${
         items.map((it,j)=>`<li><label><input type="checkbox" data-j="${j}" ${saved[id+'.'+j]?'checked':''}><span>${it}</span></label></li>`).join('')
       }</ul>`;
       ol.replaceWith(box);
@@ -463,7 +474,14 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
         const all = box.querySelectorAll('input'), done = box.querySelectorAll('input:checked').length;
         box.querySelector('.count').textContent = done + ' מתוך ' + all.length;
         box.querySelector('.bar-p i').style.width = (done / all.length * 100) + '%';
+        box.querySelector('.clear').hidden = !done;
       };
+      box.querySelector('.clear').addEventListener('click', () => {
+        if(!confirm('לנקות את הסימונים ברשימה הזו?')) return;
+        const s = store.get(key) || {};
+        box.querySelectorAll('input').forEach(inp => { inp.checked = false; delete s[id+'.'+inp.dataset.j]; });
+        store.set(key, s); upd();
+      });
       box.addEventListener('change', e => {
         const s = store.get(key) || {};
         s[id+'.'+e.target.dataset.j] = e.target.checked;
