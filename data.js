@@ -1137,7 +1137,7 @@ window.TASH = {
     "link": "https://mofet-frontend.wiz.digital.idf.il/m/UUCSEARBGJ"
    },
    {
-    "title": "רמ״י",
+    "title": "רמב״י חריג",
     "link": "https://mofet-frontend.wiz.digital.idf.il/m/G3AMEZAVQR"
    },
    {
