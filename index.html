@@ -134,6 +134,7 @@ main{padding:24px 0 48px;min-height:70vh}
 .sm-row:first-child{border-top:0}
 .sm-row dt{font-size:14px;color:var(--text-3);font-weight:500}
 .sm-row dd{margin:0;font-size:16px;line-height:1.5}
+.list.vid{margin:0 0 20px}
 .section-label{font-size:14px;color:var(--text-3);margin:0 0 8px;font-weight:500}
 
 .list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -547,6 +548,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
 
   function bank(i){
     let b = D.banks[i]; if(!b) return go('#/banks');
+    const vid = b.video;
     let alias = '';
     if(b.sameAs){
       const base = D.banks.find(x => x.name === b.sameAs);
@@ -567,6 +569,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       <p class="crumb">אישורים לפי בנק</p>
       <h1 class="page-title">${esc(b.name)}</h1>
       ${alias}
+      ${vid ? `<ul class="list vid"><li><a class="row" href="${esc(vid)}" target="_blank" rel="noopener"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg></span><span class="t"><b>סרטוני הסבר</b><span>איך מוציאים כל אישור, ביוטיוב</span></span>${extIcon}</a></li></ul>` : ''}
       <div class="seg" role="group" aria-label="מאיפה נכנסים">
         <button type="button" data-d="pc">${icons.pc}מחשב</button>
         <button type="button" data-d="phone">${icons.phone}טלפון</button>

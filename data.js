@@ -283,7 +283,8 @@ window.TASH = {
       "לחץ על: אישור יתרה"
      ]
     }
-   ]
+   ],
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWufI2MSPqgQt_yU2jTva_eg"
   },
   {
    "name": "בנק ירושלים",
@@ -490,7 +491,8 @@ window.TASH = {
       "ייצא כקובץ PDF"
      ]
     }
-   ]
+   ],
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWtUlCGSaw_DYiXZXpCMox2I"
   },
   {
    "name": "מזרחי טפחות",
@@ -601,7 +603,8 @@ window.TASH = {
       "ייצא כקובץ PDF"
      ]
     }
-   ]
+   ],
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWtj5q2_TP0v8Nd5XJdMChS4"
   },
   {
    "name": "דיסקונט",
@@ -702,7 +705,8 @@ window.TASH = {
       "ייצא כקובץ PDF"
      ]
     }
-   ]
+   ],
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWtUlCGSaw_DYiXZXpCMox2I"
   },
   {
    "name": "לאומי",
@@ -803,7 +807,8 @@ window.TASH = {
       "מצד שמאל לחץ על: שמירה"
      ]
     }
-   ]
+   ],
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWsAOA-TOTzsjcs7dNcXPml1"
   },
   {
    "name": "דואר ישראל",
@@ -882,7 +887,8 @@ window.TASH = {
       "בקש לשלוח למייל את המסמך הרצוי"
      ]
     }
-   ]
+   ],
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWut2WJER-CUfgFe0zmqBa8R"
   },
   {
    "name": "בנק הפועלים",
@@ -976,7 +982,8 @@ window.TASH = {
       "צלם את המסך שהתקבל"
      ]
     }
-   ]
+   ],
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWultCEe1V6mREGn0GPG5cLE"
   },
   {
    "name": "פפר (Pepper)",
@@ -1073,7 +1080,8 @@ window.TASH = {
       "הורד את המסמך"
      ]
     }
-   ]
+   ],
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWuLKfhvc9vncn-0Z4HJEvVA"
   },
   {
    "name": "בנק יהב",
@@ -1263,7 +1271,8 @@ window.TASH = {
   },
   {
    "name": "אוצר החייל",
-   "sameAs": "בינלאומי"
+   "sameAs": "בינלאומי",
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWufI2MSPqgQt_yU2jTva_eg"
   },
   {
    "name": "בנק פאג״י",
@@ -1271,7 +1280,8 @@ window.TASH = {
   },
   {
    "name": "בנק מסד",
-   "sameAs": "בינלאומי"
+   "sameAs": "בינלאומי",
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWufI2MSPqgQt_yU2jTva_eg"
   }
  ],
  "keva": {
