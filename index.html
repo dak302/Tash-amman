@@ -129,6 +129,11 @@ main{padding:24px 0 48px;min-height:70vh}
 .section-label.grp{margin:24px 0 8px}
 .section-label.grp:first-of-type{margin-top:0}
 .list .row.sub-row{padding-inline-start:32px}
+.summary{margin:0 0 24px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.sm-row{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+.sm-row:first-child{border-top:0}
+.sm-row dt{font-size:14px;color:var(--text-3);font-weight:500}
+.sm-row dd{margin:0;font-size:16px;line-height:1.5}
 .section-label{font-size:14px;color:var(--text-3);margin:0 0 8px;font-weight:500}
 
 .list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -471,7 +476,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     const bar = langs.length ? `<div class="langs" role="group" aria-label="שפה">${
       [['he','עברית']].concat(langs.map(k => [k, LANG_NAMES[k]])).map(([k,n]) => `<button type="button" data-l="${k}" lang="${k}">${n}</button>`).join('')
     }</div>` : '';
-    render(`<p class="crumb">ת״ש חובה</p>${bar}<h1 class="page-title" id="ttl">${esc(t.title)}</h1>${updLine(t)}<div class="content" id="content">${t.html}</div>${docLink(t.doc)}`, true);
+    render(`<p class="crumb">ת״ש חובה</p>${bar}<h1 class="page-title" id="ttl">${esc(t.title)}</h1>${updLine(t)}<div id="sumwrap">${sumBox(t)}</div><div class="content" id="content">${t.html}</div>${docLink(t.doc)}`, true);
     makeChecklists(document.getElementById('content'), 'chk:' + i);
     if(!langs.length) return;
     const show = l => {
@@ -481,6 +486,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       h.textContent = tr ? tr.title : t.title;
       [c, h].forEach(el => { el.dir = tr ? 'ltr' : 'rtl'; el.lang = l; });
       if(!tr) makeChecklists(c, 'chk:' + i);
+      const sw = document.getElementById('sumwrap'); if(sw) sw.hidden = !!tr;
       document.querySelectorAll('.langs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === l));
       store.set('lang', l);
     };
@@ -610,6 +616,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       <p class="crumb">ת״ש קבע</p>
       <h1 class="page-title">${esc(t.title)}</h1>
       ${updLine(t)}
+      ${sumBox(t)}
       <div class="content" id="content">${t.html}</div>
       ${docLink(t.doc)}
       ${forms.length ? `<h2 class="sub-title">להגשת בקשה</h2><ul class="list">${forms.map(formRow).join('')}</ul>` : `<div class="note">להגשת בקשה, פנו לקצינת הת״ש.</div>`}
@@ -671,6 +678,11 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     draw();
   }
 
+  function sumBox(t){
+    const x = t.sum; if(!x) return '';
+    const row = (k, v) => `<div class="sm-row"><dt>${k}</dt><dd>${esc(v)}</dd></div>`;
+    return `<dl class="summary">${row('מי זכאי', x.who)}${row('מה מקבלים', x.what)}${row('מה צריך', x.need)}${row('איך מבקשים', x.how)}</dl>`;
+  }
   function updLine(t){
     let u = t.updated;
     if(!u && t.doc){ const k = [].concat(t.doc)[0]; const doc = D.docs && D.docs[k]; if(doc) u = doc.date + ' · לפי המדיניות'; }
