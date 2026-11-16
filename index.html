@@ -125,6 +125,10 @@ main{padding:24px 0 48px;min-height:70vh}
 .doc-note{margin:0 0 16px;font-size:14px;color:var(--text-3)}
 .pages{display:flex;flex-direction:column;gap:12px}
 .pages img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
+.upd{margin:-12px 0 20px;font-size:14px;color:var(--text-3)}
+.section-label.grp{margin:24px 0 8px}
+.section-label.grp:first-of-type{margin-top:0}
+.list .row.sub-row{padding-inline-start:32px}
 .section-label{font-size:14px;color:var(--text-3);margin:0 0 8px;font-weight:500}
 
 .list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -456,7 +460,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
       <p class="crumb">ת״ש חובה</p>
       <h1 class="page-title">על מה תרצו לקרוא?</h1>
       <ul class="list">
-        ${D.hova.map((t,i)=>`<li><a class="row" href="#/hova/${i}"><span class="t"><b>${esc(t.title)}</b></span>${chev}</a></li>`).join('')}
+        ${D.hova.map((t,i)=>({t,i,pos:t.pos ?? i})).sort((a,b)=>a.pos-b.pos).map(({t,i})=>`<li><a class="row${t.pos != null ? ' sub-row' : ''}" href="#/hova/${i}"><span class="t"><b>${esc(t.title)}</b>${t.sub ? `<span>${esc(t.sub)}</span>` : ''}</span>${chev}</a></li>`).join('')}
       </ul>
     `, true);
   }
@@ -467,7 +471,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     const bar = langs.length ? `<div class="langs" role="group" aria-label="שפה">${
       [['he','עברית']].concat(langs.map(k => [k, LANG_NAMES[k]])).map(([k,n]) => `<button type="button" data-l="${k}" lang="${k}">${n}</button>`).join('')
     }</div>` : '';
-    render(`<p class="crumb">ת״ש חובה</p>${bar}<h1 class="page-title" id="ttl">${esc(t.title)}</h1><div class="content" id="content">${t.html}</div>${docLink(t.doc)}`, true);
+    render(`<p class="crumb">ת״ש חובה</p>${bar}<h1 class="page-title" id="ttl">${esc(t.title)}</h1>${updLine(t)}<div class="content" id="content">${t.html}</div>${docLink(t.doc)}`, true);
     makeChecklists(document.getElementById('content'), 'chk:' + i);
     if(!langs.length) return;
     const show = l => {
@@ -576,9 +580,10 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     render(`
       <p class="crumb">ת״ש קבע</p>
       <h1 class="page-title">הזכויות שלך בקבע</h1>
-      <ul class="list">
-        ${D.keva.topics.map((t,i)=>`<li><a class="row" href="#/keva/${i}"><span class="t"><b>${esc(t.title)}</b><span>${esc(t.sub)}</span></span>${chev}</a></li>`).join('')}
-      </ul>
+      ${(D.keva.groups || ['']).map(g => {
+        const rows = D.keva.topics.map((t,i)=>({t,i})).filter(x => !g || x.t.group === g);
+        return `${g ? `<p class="section-label grp">${esc(g)}</p>` : ''}<ul class="list">${rows.map(({t,i})=>`<li><a class="row" href="#/keva/${i}"><span class="t"><b>${esc(t.title)}</b><span>${esc(t.sub)}</span></span>${chev}</a></li>`).join('')}</ul>`;
+      }).join('')}
       <h2 class="sub-title" id="online">בקשות בדיגיטל</h2>
       <ol class="how">
         <li>לחצו על הבקשה הרלוונטית</li>
@@ -604,6 +609,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     render(`
       <p class="crumb">ת״ש קבע</p>
       <h1 class="page-title">${esc(t.title)}</h1>
+      ${updLine(t)}
       <div class="content" id="content">${t.html}</div>
       ${docLink(t.doc)}
       ${forms.length ? `<h2 class="sub-title">להגשת בקשה</h2><ul class="list">${forms.map(formRow).join('')}</ul>` : `<div class="note">להגשת בקשה, פנו לקצינת הת״ש.</div>`}
@@ -665,6 +671,11 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     draw();
   }
 
+  function updLine(t){
+    let u = t.updated;
+    if(!u && t.doc){ const k = [].concat(t.doc)[0]; const doc = D.docs && D.docs[k]; if(doc) u = doc.date + ' · לפי המדיניות'; }
+    return u ? `<p class="upd">עודכן: ${esc(u)}</p>` : '';
+  }
   /* ---------- מסמכי מדיניות מלאים ---------- */
   const docIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>';
   const docRow = (slug, label) => { const doc = D.docs[slug]; return `<li><a class="row" href="#/doc/${slug}"><span class="ico">${docIcon}</span><span class="t"><b>${esc(label || doc.title)}</b><span>${label ? esc(doc.title) + ' · ' : ''}${esc(doc.date)} · ${doc.pages} עמודים</span></span>${chev}</a></li>`; };
