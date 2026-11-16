@@ -590,6 +590,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
         ${D.keva.online.map(formRow).join('')}
       </ul>
       <div class="note">בקשות שאינן ברשימה מגישים דרך קצינת הת״ש.</div>
+      <ul class="list doc-link"><li><a class="row" href="#/docs"><span class="ico">${docIcon}</span><span class="t"><b>כל מסמכי המדיניות</b><span>המסמכים המלאים, לקריאה באתר</span></span>${chev}</a></li></ul>
     `, true);
   }
 
@@ -666,9 +667,20 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
 
   /* ---------- מסמכי מדיניות מלאים ---------- */
   const docIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>';
-  function docLink(slug){
-    const doc = slug && D.docs && D.docs[slug]; if(!doc) return '';
-    return `<ul class="list doc-link"><li><a class="row" href="#/doc/${slug}"><span class="ico">${docIcon}</span><span class="t"><b>למדיניות המלאה</b><span>${esc(doc.title)} · ${doc.pages} עמודים</span></span>${chev}</a></li></ul>`;
+  const docRow = (slug, label) => { const doc = D.docs[slug]; return `<li><a class="row" href="#/doc/${slug}"><span class="ico">${docIcon}</span><span class="t"><b>${esc(label || doc.title)}</b><span>${label ? esc(doc.title) + ' · ' : ''}${esc(doc.date)} · ${doc.pages} עמודים</span></span>${chev}</a></li>`; };
+  function docLink(slugs){
+    const list = [].concat(slugs || []).filter(x => D.docs && D.docs[x]); if(!list.length) return '';
+    return `<ul class="list doc-link">${list.map(x => docRow(x, list.length === 1 ? 'למדיניות המלאה' : '')).join('')}</ul>`;
+  }
+  function docsAll(){
+    const groups = {};
+    Object.keys(D.docs).forEach(k => { const g = D.docs[k].group || 'קבע'; (groups[g] = groups[g] || []).push(k); });
+    render(`
+      <p class="crumb">מסמכי מדיניות</p>
+      <h1 class="page-title">כל מסמכי המדיניות</h1>
+      <p class="doc-note">המסמכים המלאים, עם שמות, חתימות ופרטי קשר מושחרים</p>
+      ${Object.keys(groups).map(g => `<h2 class="sub-title">${esc(g)}</h2><ul class="list">${groups[g].map(k => docRow(k)).join('')}</ul>`).join('')}
+    `, true);
   }
   function docView(slug){
     const doc = D.docs && D.docs[slug]; if(!doc) return go('#/');
@@ -690,6 +702,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
     if(p[0] === 'keva') return p[1] != null ? kevaTopic(+p[1]) : keva();
     if(p[0] === 'holidays') return holidays(p[1]);
     if(p[0] === 'doc') return docView(p[1]);
+    if(p[0] === 'docs') return docsAll();
     home();
   }
   back.addEventListener('click', () => {
