@@ -1276,7 +1276,8 @@ window.TASH = {
   },
   {
    "name": "בנק פאג״י",
-   "sameAs": "בינלאומי"
+   "sameAs": "בינלאומי",
+   "video": "https://youtube.com/playlist?list=PLggDhgzBukWufI2MSPqgQt_yU2jTva_eg"
   },
   {
    "name": "בנק מסד",
