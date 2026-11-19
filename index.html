@@ -312,6 +312,21 @@ footer{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
 .row:hover{background:#f6f7f6}
 .quick a:hover{border-color:#0b4d2c;color:#0b4d2c;background:#fff}
 }
+
+/* תנועה עדינה: צ׳קליסט ואקורדיונים */
+.check input{transition:background-color .12s var(--ease),border-color .12s var(--ease),transform .12s var(--ease)}
+.check input::after{transition:opacity .12s var(--ease)}
+.check input:active{transform:scale(.9)}
+@supports selector(::details-content){
+:root{interpolate-size:allow-keywords}
+.doc::details-content{block-size:0;overflow:hidden;transition:block-size .2s var(--ease),content-visibility .2s allow-discrete}
+.doc[open]::details-content{block-size:auto}
+}
+@media (prefers-reduced-motion:reduce){
+.quick a:active,.tile:active,.langs button:active,.seg button:active,.check input:active{transform:none}
+.doc::details-content{transition:none}
+.check .bar-p i,.doc summary .chev{transition:none}
+}
 </style>
 </head>
 <body>
