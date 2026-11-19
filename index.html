@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/logo.png">
 <link rel="apple-touch-icon" href="assets/logo.png">
 <style>
@@ -255,6 +255,48 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
   .grid{grid-template-columns:1fr 1fr}
   .page-title{font-size:24px}
 }
+/* ===== מראה של אתר רגיל: פינות כמעט ישרות, בלי אייקונים בריבועים, מעט ירוק ===== */
+body{font-family:"Rubik",system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+*{border-radius:0 !important}
+.brand img,.mark{border-radius:50% !important}
+.search,.quick a,.seg,.seg button,.tile,.summary,.check,.doc,.folder,.note,.langs button,.h-tabs a,.h-day,.h-next,.content a.ext,.content .tbl,.content .callout,.h-note,.pages img,.check input{border-radius:4px !important}
+/* פס עליון */
+.cord{display:none}
+header.top{background:#0b4d2c;border-bottom:4px solid #5b2d8a;backdrop-filter:none;-webkit-backdrop-filter:none}
+.bar{height:60px}
+.brand span{color:#fff;font-weight:600;font-size:18px}
+.back{color:#fff}.back:hover{background:rgba(255,255,255,.12)}
+/* באנר בדף הבית */
+.hero{background:#f4f6f4;margin:-24px -16px 20px;padding:24px 16px;border-bottom:1px solid #dfe3df}
+.hero h1{font-weight:700;color:#15201a}
+/* בלי אייקונים בריבועים */
+.ico{display:none !important}
+/* רשימות עם קווים מפרידים */
+.list{border:0;border-top:1px solid #c9cfca;border-bottom:1px solid #c9cfca}
+.list li+li{border-top:1px solid #e3e6e3}
+.row{padding:14px 4px}
+.big .row{min-height:0;padding:16px 4px}
+.row:hover{background:#f6f7f6}
+.row .t b{font-weight:600;color:#15201a}
+/* כותרות: שחור, ירוק רק בקטנות */
+.page-title{font-weight:700;color:#15201a;border-bottom:1px solid #c9cfca;padding-bottom:12px}
+.content h2{font-weight:600;color:#15201a}
+.content h3{color:#0b4d2c}
+.section-label.grp{font-size:16px;font-weight:600;color:#15201a}
+/* תיבת בקצרה */
+.summary{background:#fafbfa;border-color:#dfe3df}
+.summary::before{content:"בקצרה";display:block;padding:10px 16px;font-weight:600;font-size:15px;color:#0b4d2c;border-bottom:1px solid #dfe3df;background:#f2f5f2}
+.sm-row dt{color:#4a5850;font-weight:600}
+/* כפתורים ושדות */
+.search{border:1px solid #9aa39d}
+.quick a{background:#fff;border:1px solid #c9cfca;color:#15201a}
+.quick a:hover{border-color:#0b4d2c;color:#0b4d2c;background:#fff}
+.tile{border-color:#c9cfca}
+.note{background:#f4f6f4}
+.folder{background:#0b4d2c}
+/* פוטר */
+footer{background:#f4f6f4;border-top:1px solid #dfe3df;max-width:none;padding:20px 16px 32px}
+
 </style>
 </head>
 <body>
@@ -294,7 +336,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--text-3);
   </defs>
 </svg>
 
-<script src="data.js?v=20261118b"></script>
+<script src="data.js?v=20261119a"></script>
 <script>
 (function(){
   const D = window.TASH;
