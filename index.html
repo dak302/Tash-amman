@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>לחיות את הת״ש</title>
 <meta name="description" content="זכויות ת״ש לחיילי חובה וקבע, ואיך מוציאים כל אישור מהבנק">
+<meta property="og:title" content="לחיות את הת״ש">
+<meta property="og:description" content="זכויות ת״ש לחיילי חובה וקבע, ואיך מוציאים כל אישור מהבנק">
+<meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0b4d2c">
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +23,7 @@
   --line-strong:rgba(18,32,24,.16);
   --text:#15201a;
   --text-2:#4a5850;
-  --text-3:#7b8780;
+  --text-3:#5f6b64;          /* כהה יותר: ניגודיות 4.5:1 לפחות גם על רקע אפור */
   --green:#0e5a34;          /* ירוק בקבוק – צבע מוביל */
   --green-ink:#0b4a2b;
   --green-soft:#e8f1ec;
@@ -327,10 +330,20 @@ footer{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
 .doc::details-content{transition:none}
 .check .bar-p i,.doc summary .chev{transition:none}
 }
+/* ליטוש: נגישות ומקלדת */
+.skip{position:absolute;inset-inline-start:8px;top:-64px;z-index:100;background:#fff;color:var(--text);padding:12px 16px;border-radius:8px;box-shadow:0 0 0 2px var(--green)}
+.skip:focus{top:8px}
+.brand{min-height:44px}
+.quick a{min-height:44px;display:inline-flex;align-items:center}
+.search input{align-self:stretch;min-height:44px}
+.search:focus-within{border-color:var(--green);box-shadow:0 0 0 2px var(--green)}
+.top :focus-visible{outline-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px;box-shadow:0 0 0 4px rgba(14,90,52,.16)}
 </style>
 </head>
 <body>
 <div class="cord" aria-hidden="true"></div>
+<a class="skip" href="#/" onclick="event.preventDefault();var m=document.querySelector('main');if(m){m.setAttribute('tabindex','-1');m.focus()}">דלג לתוכן</a>
 <header class="top">
   <div class="wrap bar">
     <a class="brand" href="#/" aria-label="לחיות את הת״ש – דף הבית">
