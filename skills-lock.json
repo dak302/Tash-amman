@@ -64,6 +64,13 @@
       "skillPath": "skills/ask-sonner/SKILL.md",
       "computedHash": "9e82788679f5f71c9e0686b66200565c3f4e47037a06b9d1e94567ed42361bbc"
     },
+    "brag-slim": {
+      "source": "latent-spaces/brag",
+      "commit": "06379432a9243c951dfcc051153be18d2d261044",
+      "sourceType": "github",
+      "skillPath": "skills/brag-slim/SKILL.md",
+      "computedHash": "dfdaf2ec5dd2f10efbb169350b228b58fb5cab03d2f2079e26cbbba5e0fea0e7"
+    },
     "break-ui": {
       "source": "emilkowalski/skills",
       "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
