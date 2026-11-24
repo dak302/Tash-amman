@@ -794,7 +794,7 @@ footer{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
     `, true);
   }
   function docView(slug){
-    const doc = D.docs && D.docs[slug]; if(!doc) return go('#/');
+    const doc = D.docs && Object.prototype.hasOwnProperty.call(D.docs, slug) && D.docs[slug]; if(!doc) return go('#/');
     const pages = Array.from({length: doc.pages}, (_, i) => `assets/docs/${slug}-${String(i + 1).padStart(2, '0')}.jpg`);
     render(`
       <p class="crumb">מדיניות מלאה · ${esc(doc.date)}</p>
